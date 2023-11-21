@@ -1,0 +1,20 @@
+name: "Wiki"
+
+on:
+  gollum
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: contextObserver
+        run: |
+          curl -X POST -H "Content-type: application/json" \
+            --data "{\"action\": \"${ACTION}\", \"repo\": \"${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}\", \"url\": \"${URL}\"}" \
+            ${CONTENT_OBSERVER_URL}
+        env:
+          ACTION: ${{ github.event.pages[0].action }}
+          TITLE: ${{ github.event.pages[0].title }}
+          URL: ${{ github.event.pages[0].html_url }}
+          CONTENT_OBSERVER_URL: ${{ secrets.CONTENT_OBSERVER_URL }}
