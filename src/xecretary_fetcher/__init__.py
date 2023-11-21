@@ -1,1 +1,0 @@
-from xecretary_fetcher.github_wiki import GithubWiki
